@@ -134,6 +134,13 @@ static BaseType_t xTraceRunning = pdTRUE;
 
 /*-----------------------------------------------------------*/
 
+
+void HelloTask()
+{
+	while (1)
+		printf("Hello world \n");
+		vTaskDelay(1000);
+}
 int main( void )
 {
 	/* This demo uses heap_5.c, so start by defining some heap regions.  heap_5
@@ -144,7 +151,8 @@ int main( void )
 	/* Initialise the trace recorder.  Use of the trace recorder is optional.
 	See http://www.FreeRTOS.org/trace for more information. */
 	vTraceEnable( TRC_START );
-
+	xTaskHandle HT; //  Its task handler 
+	xTaskCreate(HelloTask, "Hello Task", configMINIMAL_STACK_SIZE, NULL, 1, &HT); // Create the Task 
 	/* The mainCREATE_SIMPLE_BLINKY_DEMO_ONLY setting is described at the top
 	of this file. */
 	#if ( mainCREATE_SIMPLE_BLINKY_DEMO_ONLY == 1 )
